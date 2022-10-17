@@ -1,0 +1,24 @@
+{
+  "LastServer": "MainLocal",
+  "LastItem": "Football",
+  "LastItemType": "Lowpoly",
+  "ServersType": [
+    0,
+    1
+  ],
+  "ServersId": [
+    "Main",
+    "MainLocal"
+  ],
+  "ServersSrc": [
+    "wafflesgama/LazyBuilderLibrary",
+    "C:\\Projects\\LazyBuilder\\LazyBuilderData"
+  ],
+  "ServersBranch": [
+    "main",
+    null
+  ],
+  "PropCol": false,
+  "PropRb": false,
+  "PageSize": 50
+}
