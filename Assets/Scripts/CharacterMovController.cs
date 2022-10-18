@@ -12,29 +12,27 @@ public class CharacterMovController : MonoBehaviour
 
 
     [Header("Float")]
-    public float floatHeight = 1f;
-    public float springStrength = 1f;
-    public float dampenStrength = 1f;
+    public float floatHeight = 1.6f;
+    public float springStrength = 60f;
+    public float dampenStrength = 29f;
 
     [Header("Ground Check")]
-    public float minGroundHeight = 1f;
-    public float castDistance = 1f;
-    public LayerMask raycastMask;
+    public float minGroundHeight = 2f;
+    public float castDistance = 2f;
+    public LayerMask raycastMask =1;
     [ReadOnly] public bool isGroundNear;
     [ReadOnly] public bool isGrounded;
     [ReadOnly] [SerializeField] private RaycastHit groundHit;
 
-
-
-    [Header("Walk")]
-    public float maxAccel = 10;
-    public float maxDeccel = 10;
-    public float goalVelocity;
+    [Header("Move")]
+    public float maxAccel = 120f;
+    public float maxDeccel = 200f;
+    public float goalVelocity=10f;
 
     [Header("Jump")]
-    public float jumpForce;
-    public int jumpMaxDurationFrames = 30;
-    public float jumpDownForce = 2f;
+    public float jumpForce=9.5f;
+    public int jumpMaxDurationFrames = 15;
+    public float jumpDownForce = 111f;
     public UEvent OnJump = new UEvent();
     [ReadOnly] [SerializeField] private bool isJumping;
     [ReadOnly] [SerializeField] private int jumpDurationCounter;
@@ -46,7 +44,7 @@ public class CharacterMovController : MonoBehaviour
     [ReadOnly] [SerializeField] private int landStartCheckCounter;
 
     [Header("Airbourne")]
-    public float airDeacFactor;
+    public float airDeacFactor=0f;
 
 
     [Header("Stats")]
@@ -70,8 +68,9 @@ public class CharacterMovController : MonoBehaviour
     }
     void Start()
     {
-        inputHandler.input_jump.Onpressed.Subscribe(eventHandler, Jump);
+        //inputHandler.input_jump.Onpressed.Subscribe(eventHandler, Jump);
     }
+
     private void OnDestroy()
     {
         eventHandler.UnsubcribeAll();
@@ -87,6 +86,7 @@ public class CharacterMovController : MonoBehaviour
         //CheckEndLanding();
 
         //Float();
+
         //Move();
 
         //AirbourneDecel();
@@ -159,24 +159,25 @@ public class CharacterMovController : MonoBehaviour
         transformedMove.y = 0;
 
         //Calculate necessary aceleration to achieve goal velocity
-        Vector3 aceleration = transformedMove * goalVelocity - rb.velocity;
+        Vector3 aceleration = (transformedMove * goalVelocity - rb.velocity) / Time.fixedDeltaTime;
 
 
         //Check if new direction is facing or against current velocity
         float dot = Vector3.Dot(transformedMove, rb.velocity);
 
         if (dot >= 0)
-            aceleration = Vector3.ClampMagnitude(aceleration, maxAccel);
+            aceleration = Vector3.ClampMagnitude(aceleration, maxAccel);  //If positive or zero apply acceleration clamp
         else
-            aceleration = Vector3.ClampMagnitude(aceleration, maxDeccel);
+            aceleration = Vector3.ClampMagnitude(aceleration, maxDeccel);  //If negative apply decceleration clamp
 
-        Vector3 force = rb.mass * (aceleration / Time.fixedDeltaTime);
+        Vector3 force = rb.mass * aceleration;
+        //Make sure Move Force does apply to Y axis
         force.y = 0;
 
         rb.AddForce(force);
     }
 
-   
+
 
 
 

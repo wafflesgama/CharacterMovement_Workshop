@@ -9,8 +9,8 @@ public class CharacterActionController : MonoBehaviour
 
     public PlayerTriggerChecker checker;
 
-    public float kickForce=10f;
-    private UEventHandler eventHandler=new UEventHandler();
+    public float kickForce = 10f;
+    private UEventHandler eventHandler = new UEventHandler();
 
     void Start()
     {
@@ -21,11 +21,12 @@ public class CharacterActionController : MonoBehaviour
     {
         eventHandler.UnsubcribeAll();
     }
-    
+
 
     void Kick()
     {
         if (!checker.hasObject) return;
+        if (checker.objRb == null) return;
 
         var dir = movController.horizontalVel.normalized;
         checker.objRb.AddForce(dir * kickForce, ForceMode.Impulse);

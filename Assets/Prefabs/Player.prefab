@@ -220,7 +220,7 @@ Transform:
   m_Children:
   - {fileID: 4570495012885031984}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4570495012756290007
 MonoBehaviour:
@@ -425,10 +425,11 @@ MonoBehaviour:
   raycastMask:
     serializedVersion: 2
     m_Bits: 55
-  isGroundNear: 0
+  isGroundNear: 1
   isGrounded: 1
-  maxAccel: 2.4
-  goalVelocity: 9
+  maxAccel: 120
+  maxDeccel: 200
+  goalVelocity: 10
   jumpForce: 9.5
   jumpMaxDurationFrames: 15
   jumpDownForce: 111
@@ -438,7 +439,7 @@ MonoBehaviour:
   isLanding: 0
   landStartCheckCounter: 0
   airDeacFactor: 0
-  vel: {x: 0, y: -0.004526764, z: 0}
+  vel: {x: 0, y: 0.0000022798777, z: 0}
   horizontalVel: {x: 0, y: 0, z: 0}
   horizontalVelMag: 0
   isFrozen: 0
@@ -867,6 +868,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 0fd0f4065a880ad47ac966104f3e783f, type: 2}
     - target: {fileID: 5866666021909216657, guid: 456ef8685def580459333b449a41b18a, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftLeg'\n\tFrom
+        animation clip 'Kick'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 456ef8685def580459333b449a41b18a, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -906,6 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movController: {fileID: 4570495012885031979}
+  playerInputHandler: {fileID: 4570495012756290006}
   rotationSpeed: 50
   playerDirection: {x: 0, y: 0, z: 0}
   playerRotation: {x: 0, y: 0, z: 0, w: 0}

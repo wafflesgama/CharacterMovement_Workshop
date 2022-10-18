@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UEventHandler;
+
 [RequireComponent(typeof(Collider))]
 public class PlayerTriggerChecker : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerTriggerChecker : MonoBehaviour
     public bool hasObject { get; private set; }
     public GameObject obj { get; private set; }
     public Rigidbody objRb { get; private set; }
+
+    public UEvent OnTriggered= new UEvent();
 
     public static bool DoesMaskContainsLayer(LayerMask layermask, int layer)
     {
@@ -29,6 +33,8 @@ public class PlayerTriggerChecker : MonoBehaviour
         obj = searchInRigidbody ? other.attachedRigidbody.gameObject: other.gameObject;
         objRb = other.attachedRigidbody;
         hasObject = true;
+
+        OnTriggered.TryInvoke();
     }
 
     private void OnTriggerExit(Collider other)

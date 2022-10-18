@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterAnimController : MonoBehaviour
 {
     public CharacterMovController movController;
+    public PlayerInputHandler playerInputHandler;
 
     [Header("Model Rotation")]
     public float rotationSpeed = 5;
@@ -18,6 +19,7 @@ public class CharacterAnimController : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerInputHandler.input_interact.Onpressed.Subscribe(eventHandler, Kick);
     }
     void Start()
     {
@@ -61,6 +63,12 @@ public class CharacterAnimController : MonoBehaviour
     void Land()
     {
         animator.SetTrigger("Land");
+    }
+
+
+    void Kick()
+    {
+        animator.SetTrigger("Kick");
     }
 
     public void Knock()
