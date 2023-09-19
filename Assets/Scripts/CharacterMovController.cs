@@ -12,6 +12,7 @@ public class CharacterMovController : MonoBehaviour
 
 
     [Header("Float")]
+    [Range(0,2)]
     public float floatHeight = 1.6f;
     public float springStrength = 60f;
     public float dampenStrength = 29f;
@@ -66,9 +67,12 @@ public class CharacterMovController : MonoBehaviour
         if (castDistance < floatHeight * 1.2f)
             castDistance = floatHeight * 1.2f;
     }
+
+
+
     void Start()
     {
-        //inputHandler.input_jump.Onpressed.Subscribe(eventHandler, Jump);
+        inputHandler.input_jump.Onpressed.Subscribe(eventHandler, Jump);
     }
 
     private void OnDestroy()
@@ -115,6 +119,8 @@ public class CharacterMovController : MonoBehaviour
         isGrounded = isGroundNear ? groundHit.distance <= minGroundHeight : false;
     }
 
+
+    public float  heightHeight=20f;
     private void Float()
     {
         //Initial validations
